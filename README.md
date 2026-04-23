@@ -98,6 +98,31 @@ pytest --html=report.html
 
 ---
 
+## 📸 Test Execution & Reports
+
+* Parallel execution using pytest-xdist
+* HTML reports generated using pytest-html
+* Playwright tracing enabled for debugging failures
+
+## 🧪 Test Coverage
+
+* UI Testing (Login, Order Flow)
+* API Testing (Order Creation)
+* Hybrid Testing (API + UI validation)
+* BDD Scenarios using pytest-bdd
+
+---
+
+## 🚀 How this project stands out
+
+* Combines API + UI testing in one flow
+* Uses Page Object Model for maintainability
+* Supports data-driven testing using JSON
+* Includes BDD for readable test scenarios
+* Designed for CI/CD integration
+
+---
+
 ## 👩‍💻 Author
 
 Anuja Shejwal
