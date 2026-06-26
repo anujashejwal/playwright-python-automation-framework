@@ -122,7 +122,12 @@ pytest --html=report.html
 * Designed for CI/CD integration
 
 ---
-
+## Testing Approach
+* Page Object Model for UI test maintainability
+* Hybrid API + UI validation for end-to-end coverage  
+* JSON-based data-driven testing for parameterized execution
+* Explicit waits for synchronization stability
+---
 ## 👩‍💻 Author
 
 Anuja Shejwal
