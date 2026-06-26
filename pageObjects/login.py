@@ -12,5 +12,6 @@ class LoginPage:
         self.page.get_by_placeholder("email@example.com").fill(userEmail)
         self.page.get_by_placeholder("enter your passsword").fill(userPassword)
         self.page.get_by_role("button", name="login").click()
-        dashboardPage = DashboardPage(self.page)
-        return dashboardPage
+        #dashboardPage = DashboardPage(self.page)
+        #return dashboardPage
+        return DashboardPage(self.page)

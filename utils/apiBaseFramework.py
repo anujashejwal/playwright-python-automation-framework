@@ -9,17 +9,10 @@ from playwright.sync_api import Playwright
 
 from conftest import user_credentials
 
-
-
+#copy from network tab
 ordersPayLoad = {"orders": [{"country": "India", "productOrderedId": "6960eae1c941646b7a8b3ed3"}]}
 
 class APIutils:
-    #Playwright gives access to browser, context & request and playwright is passed into this function
-    # ":" type annotation, "is type of"
-    #The variable playwright should be of type Playwright
-    #playwright is coming from Playwright class
-    #Playwright class is coming from sync api
-    #sync_api is coming from the pytest-playwright package that we installed
 
 #1. Login via API ==> Sends login request and gets token
     def getToken(self,playwright:Playwright,user_credentials):
@@ -33,11 +26,13 @@ class APIutils:
         return responseBody["token"]
 
 #2. Create order via API ==> uses token -> calls orders API-> Creates order in backend
+#Only logged-in users can create order that's why we need Token in createOrder()
     def createOrder(self, playwright: Playwright,user_credentials):
-        token = self.getToken(playwright,user_credentials)
+        token = self.getToken(playwright,user_credentials) #calls previous method
         api_request_context = playwright.request.new_context(base_url="https://www.rahulshettyacademy.com")
         #after giving new context -> open a page
         #copy network tab element where order is created -> copy url and payload for data
+        #send create order request =>
         response = api_request_context.post("api/ecom/order/create-order",
                                  data=ordersPayLoad,
                                  headers={"Authorization": token,
@@ -46,6 +41,7 @@ class APIutils:
         print(response.json())
         response_body = response.json()
         orderId = response_body["orders"][0]
+        #why "[0]" 👉 It’s a list → take first element
         return orderId
 
 #apiBase.py → provides API methods

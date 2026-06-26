@@ -23,13 +23,33 @@ def test_e2e_web_api(playwright:Playwright,browserInstance, user_credentials):
     userEmail = user_credentials["userEmail"]
     userPassword = user_credentials["userPassword"]
 
+    # Playwright gives access to browser, context & request and playwright is passed into this function
+    # ":" type annotation, "is type of"
+    # The variable playwright should be of type Playwright
+    # playwright is coming from Playwright class
+    # Playwright class is coming from sync api
+    # sync_api is coming from the pytest-playwright package that we installed
+
 #1. Open Browser
 #2. Call API method (Create Order -> orderId)
 #3. Login via UI
+#4. Navigate to Orders Page
+#5. Select Specific Order
+#6. Verify Order Details
 
     #Call the API to create an order and store the returned order ID in "orderId”
     api_utils = APIutils() #creates object of APIutils class to call any method of APIutils class
     orderId = api_utils.createOrder(playwright,user_credentials)
+
+#Creates object of API class
+#        ↓
+#Calls createOrder()
+#        ↓
+#Login API → get token
+#        ↓
+#Create order API
+#        ↓
+#Returns orderId
 
     loginPage = LoginPage(browserInstance) #object for loginPage class
     loginPage.navigate()

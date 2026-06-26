@@ -1,18 +1,33 @@
-# Python
-__pycache__/
-*.pyc
+# Virtual environments
 
-# Virtual Environment
 venv/
 .venv/
-venv1/
+.venv1/
 
-# PyCharm
-.idea/
+# Python cache
+
+**pycache**/
+*.pyc
+
+# Pytest
+
+.pytest_cache/
+
+# Playwright results
+
+test-results/
+playwright-report/
+trace.zip
 
 # Reports
-report.html
-test-results/
 
-# OS
+report.html
+
+# IDE
+
+.idea/
+.vscode/
+
+# OS files
+
 .DS_Store
