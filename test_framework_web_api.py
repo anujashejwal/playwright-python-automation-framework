@@ -3,6 +3,7 @@
 #3. Do Log in + order validation
 
 import json
+import os
 
 import pytest
 from playwright.sync_api import Playwright, expect
@@ -11,10 +12,13 @@ from pageObjects.dashboard import DashboardPage
 from pageObjects.login import LoginPage
 from utils.apiBaseFramework import APIutils
 
+
+print("Current Working Directory:", os.getcwd())
 #json file -> util->access into test
 with open('data/credentials.json') as f:
     test_data = json.load(f)
     print(test_data)
+    print("Loaded JSON:", test_data)
     user_credentials_list = test_data["user_credentials"]
 
 @pytest.mark.parametrize("user_credentials",user_credentials_list)  #Run this test multiple times Each time with different data

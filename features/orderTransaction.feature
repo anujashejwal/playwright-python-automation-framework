@@ -10,4 +10,4 @@ Feature: Order Transaction
     Then order message is successfully displayed
     Examples:
     | username                     | password    |
-    | rahulshettyacademy@gmail.com | Iamking@000 |
+    | rahulshetty@gmail.com | Rahul@67 |

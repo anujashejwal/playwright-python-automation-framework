@@ -1,29 +1,73 @@
+#Goal: Reusable API methods (clean framework design)
 
-#🎯 Goal: Reusable API methods (clean framework design)
-
-#🧠 What this file does:
-#getToken() → login API → returns token
-#createOrder() → creates order → returns orderId
+#What this file does:
+# getToken() -> Login API -> Returns token
+# createOrder() -> Creates order -> Returns orderId
 
 from playwright.sync_api import Playwright
 
-from conftest import user_credentials
+# Copy from Network tab
+ordersPayLoad = {
+    "orders": [
+        {
+            "country": "India",
+            "productOrderedId": "6960eae1c941646b7a8b3ed3"
+        }
+    ]
+}
 
-#copy from network tab
-ordersPayLoad = {"orders": [{"country": "India", "productOrderedId": "6960eae1c941646b7a8b3ed3"}]}
 
 class APIutils:
 
-#1. Login via API ==> Sends login request and gets token
-    def getToken(self,playwright:Playwright,user_credentials):
+    # 1. Login via API ==> Sends login request and gets token
+    def getToken(self, playwright: Playwright, user_credentials):
+
         user_email = user_credentials["userEmail"]
         user_password = user_credentials["userPassword"]
-        api_request_context = playwright.request.new_context(base_url="https://www.rahulshettyacademy.com")
-        response = api_request_context.post("api/ecom/auth/login",data={"userEmail": user_email, "userPassword": user_password})
-        assert response.ok
-        print(response.json())  #to extract json to retrieve the token
-        responseBody = response.json()  #convert response to json
+
+        api_request_context = playwright.request.new_context(
+            base_url="https://www.rahulshettyacademy.com/client"
+        )
+
+        response = api_request_context.post(
+            "api/ecom/auth/login",
+            data={
+                "userEmail": user_email,
+                "userPassword": user_password
+            }
+        )
+
+        assert response.ok, f"{response.status} - {response.text()}"
+
+        responseBody = response.json()
+        print("Login Response:", responseBody)
+
         return responseBody["token"]
+
+    # 2. Create order via API ==> Uses token -> Calls Order API -> Creates order
+    def createOrder(self, playwright: Playwright, user_credentials):
+
+        token = self.getToken(playwright, user_credentials)
+
+        api_request_context = playwright.request.new_context(
+            base_url="https://www.rahulshettyacademy.com"
+        )
+
+        response = api_request_context.post(
+            "api/ecom/order/create-order",
+            data=ordersPayLoad,
+            headers={
+                "Authorization": token,
+                "Content-Type": "application/json"
+            }
+        )
+
+        print("Create Order Response:", response.json())
+
+        response_body = response.json()
+        orderId = response_body["orders"][0]
+
+        return orderId
 
 #2. Create order via API ==> uses token -> calls orders API-> Creates order in backend
 #Only logged-in users can create order that's why we need Token in createOrder()

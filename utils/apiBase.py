@@ -27,7 +27,7 @@ class APIutils:
 #def createOrder - Create order, Return OrderId
     def createOrder(self, playwright: Playwright):
         token = self.getToken(playwright) #login -> get Token -> store in variable
-        api_request_context = playwright.request.new_context(base_url="https://www.rahulshettyacademy.com") #Create API session
+        api_request_context = playwright.request.new_context(base_url="https://www.rahulshettyacademy.com/client") #Create API session
         #after giving new context -> open a page
         #copy network tab element where order is created -> copy url and payload for data
         #Create Order request

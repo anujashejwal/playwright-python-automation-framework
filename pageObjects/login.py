@@ -14,4 +14,4 @@ class LoginPage:
         self.page.get_by_role("button", name="login").click()
         #dashboardPage = DashboardPage(self.page)
         #return dashboardPage
-        return DashboardPage(self.page)
+        return DashboardPage(self.page) #PAGE OBJECT RETURN
